@@ -1,5 +1,7 @@
 # Nextjs Tailwind ECommerce Website Like Amazon
 
+# edit by arifdm
+
 ![next amazona](/public/app.jpg)
 
 Build ECommerce Website Like Amazon by Next.js
