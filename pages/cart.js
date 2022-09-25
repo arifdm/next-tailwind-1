@@ -1,13 +1,13 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useContext } from 'react';
-import { XCircleIcon } from '@heroicons/react/outline';
-import Layout from '../components/Layout';
-import { Store } from '../utils/Store';
-import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import Image from "next/image";
+import Link from "next/link";
+import React, { useContext } from "react";
+import { XCircleIcon } from "@heroicons/react/outline";
+import Layout from "../components/Layout";
+import { Store } from "../utils/Store";
+import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function CartScreen() {
   const router = useRouter();
@@ -15,18 +15,21 @@ function CartScreen() {
   const {
     cart: { cartItems },
   } = state;
+
   const removeItemHandler = (item) => {
-    dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+    dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
+
   const updateCartHandler = async (item, qty) => {
     const quantity = Number(qty);
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      return toast.error('Sorry. Product is out of stock');
+      return toast.error("Sorry. Product is out of stock");
     }
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
-    toast.success('Product updated in the cart');
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
+    toast.success("Product updated in the cart");
   };
+
   return (
     <Layout title="Shopping Cart">
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
@@ -80,7 +83,7 @@ function CartScreen() {
                     <td className="p-5 text-right">${item.price}</td>
                     <td className="p-5 text-center">
                       <button onClick={() => removeItemHandler(item)}>
-                        <XCircleIcon className="h-5 w-5"></XCircleIcon>
+                        <XCircleIcon className="w-5 h-5"></XCircleIcon>
                       </button>
                     </td>
                   </tr>
@@ -88,7 +91,7 @@ function CartScreen() {
               </tbody>
             </table>
           </div>
-          <div className="card p-5">
+          <div className="p-5 card">
             <ul>
               <li>
                 <div className="pb-3 text-xl">
@@ -98,8 +101,8 @@ function CartScreen() {
               </li>
               <li>
                 <button
-                  onClick={() => router.push('login?redirect=/shipping')}
-                  className="primary-button w-full"
+                  onClick={() => router.push("login?redirect=/shipping")}
+                  className="w-full primary-button"
                 >
                   Check Out
                 </button>
